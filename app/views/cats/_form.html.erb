@@ -1,0 +1,34 @@
+<% action_url = cat.persisted? ? cat_url(cat) : cats_url %>
+
+<form action="<%= action_url %>" method="POST">
+    <% if cat.persisted? %>
+        <input type="hidden" name="_method" value="PATCH">
+    <% end %>
+
+    <label for="cat_name">Cat name</label>
+    <input type="text" name="cat[name]" id="cat_name" value="<%= cat.name %>">
+    <br>
+
+    <label for="sex">Sex</label>
+    <%= radio_button("cat", "sex", "M", id: "cat_sex_male") %>
+    <label for="cat_sex_male">Male</label>
+    <%= radio_button("cat", "sex", "F", id: "cat_sex_female") %>
+    <label for="cat_sex_female">Female</label>
+    <br>
+
+    <label for="birth_date">Birth date</label>
+    <input type="date" name="cat[birth_date]" id="birth_date" value="<%= cat.birth_date %>">
+    <br>
+
+    <label for="cat_coat_color">Color</label>
+    <%= select("cat", "color", Cat::COLORS, {include_blank: true}, id: "cat_coat_color") %>
+    <br>
+
+    <label for="cat_description">Description</label>
+    <textarea name="cat[description]" id="cat_description" cols="30" rows="10">
+        <%= cat.description %>
+    </textarea>
+    <br>
+
+    <input type="submit" value="<%= cat.persisted? ? 'Update!' : 'Submit!'%>">
+</form>
